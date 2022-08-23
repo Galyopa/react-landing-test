@@ -1,0 +1,66 @@
+.signup {
+  padding-bottom: 100px;
+
+  &__title {
+    margin-bottom: 50px;
+  }
+
+  &__form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    max-width: 380px;
+    text-align: left;
+  }
+
+  &__label {
+    position: relative;
+    display: inline-block;
+    color: #7E7E7E;
+  }
+
+  &__placeholder {
+    padding: 14px 16px;
+    border-radius: 8px;
+    position:absolute;
+    left:1px;
+    top:1px;
+    transition: 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    background-color: #f8f8f8;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 4px;
+    background-color: inherit;
+    border: 1px solid #D0CFCF;
+    border-radius: 4px;
+
+    &:focus, &:not(:placeholder-shown), &:-webkit-autofill {
+      & + .signup__placeholder {
+        padding: 2px 4px;
+        font-size: 12px;
+        line-height: 14px;
+        transform: translateY(-65%) translateX(12px);
+      }
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  &__help-phone {
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  &__btn {
+    align-self: center;
+    font: inherit;
+  }
+}
