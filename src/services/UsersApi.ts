@@ -1,18 +1,48 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { requestGetUser } from '../types/requestGetUser';
+import {
+  createApi,
 
-const BASE_URL = 'https://frontend-test-assignment-api.abz.agency/api/v1/users';
+  fetchBaseQuery
+} from '@reduxjs/toolkit/query/react';
+import { requestGetUser } from '../types/requestGetUser';
+import { User } from '../types/User';
+import type { RootState } from '../app/store';
+import { requestGetToken } from '../types/requestGetToken';
+
+
+const BASE_URL = 'https://frontend-test-assignment-api.abz.agency/api/v1/';
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: BASE_URL,
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).auth.token;
+
+    if (token) {
+      headers.set('token', token);
+    }
+
+    return headers;
+  },
+});
 
 export const usersApi = createApi({
-  reducerPath: 'usersApi',
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL}),
+  baseQuery,
   endpoints: (builder) => ({
-    getUsersByPage: builder.query<requestGetUser, string>({
-      query: (page) => `?page=${page}&count=6`,
+    listUsers: builder.query<requestGetUser<User>, number | void>({
+      query: (page = 1) => `users?page=${page}&count=6`,
+    }),
+    addUser: builder.mutation<User, Partial<FormData>>({
+      query(body) {
+        return {
+          url: `users`,
+          method: 'POST',
+          body,
+        };
+      },
+    }),
+    getToken: builder.query<requestGetToken, void >({
+      query: () => '/token',
     }),
   }),
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
-export const { useGetUsersByPageQuery } = usersApi;
+export const { useListUsersQuery, useAddUserMutation } = usersApi;

@@ -6,13 +6,13 @@
     width: 100%;
     position: relative;
     display: flex;
+    cursor: pointer;
   }
 
   &__btn {
     display: inline-block;
     width: 84px;
     padding: 14px 15px;
-    cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.87);
     border-radius: 4px 0 0 4px;
     background-color: #f8f8f8;

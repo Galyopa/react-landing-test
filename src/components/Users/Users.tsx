@@ -1,10 +1,27 @@
-import { FC } from "react";
-import { useGetUsersByPageQuery } from "../../services/UsersApi";
+import classNames from "classnames";
+import { FC, useEffect, useState } from "react";
+import { useListUsersQuery } from "../../services/UsersApi";
+import { User } from "../../types/User";
 import './users.scss';
 
 export const Users: FC = () => {
-  const { data } = useGetUsersByPageQuery('1');
-  const users = data?.users;
+  const [page, setPage ] = useState(1);
+  const [users, setUsers] = useState<User []>([]);
+  const { data, isLoading, isFetching } = useListUsersQuery(page);
+
+  useEffect(() => {
+    if (data) {
+      setUsers([...users, ...data.users]);
+    }
+  }, [data]);
+
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
+  if (!data?.users) {
+    return <div>No users :(</div>;
+  }
 
   return (
     <section className="users section" id="users">
@@ -14,7 +31,7 @@ export const Users: FC = () => {
         </h2>
         <ul className="users__list">
           {
-            users && users.map(user => (
+            users.map(user => (
               <li className="users__item" key={user.id}>
                 <img className="users__img" src={user.photo} alt={user.name} />
                 <h3 className="users__name ellipsis">
@@ -32,10 +49,20 @@ export const Users: FC = () => {
               </li>
             ))
           }
-
         </ul>
-        <a className="users__link lnk" href="#">
-        Show more
+
+        <a
+          className={
+            classNames(
+              'users__link',
+              'lnk',
+              {'lnk-disable': page === data.total_pages}
+            )
+          }
+          onClick={() => setPage(page + 1)}
+          isLoading={isFetching}
+        >
+          Show more
         </a>
       </div>
     </section>
