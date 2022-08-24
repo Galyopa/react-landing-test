@@ -2,22 +2,19 @@ import classNames from "classnames";
 import { FC, useEffect, useState } from "react";
 import { useListUsersQuery } from "../../services/UsersApi";
 import { User } from "../../types/User";
+import { Loader } from "../Loader/Loader";
 import './users.scss';
 
 export const Users: FC = () => {
   const [page, setPage ] = useState(1);
   const [users, setUsers] = useState<User []>([]);
-  const { data, isLoading, isFetching } = useListUsersQuery(page);
+  const { data, isLoading, isFetching} = useListUsersQuery(page);
 
   useEffect(() => {
     if (data) {
       setUsers([...users, ...data.users]);
     }
   }, [data]);
-
-  if (isLoading) {
-    return <div>Loading</div>;
-  }
 
   if (!data?.users) {
     return <div>No users :(</div>;
@@ -51,19 +48,21 @@ export const Users: FC = () => {
           }
         </ul>
 
-        <a
+        {isLoading || isFetching && <Loader />}
+
+        <button
+          disabled={page >= data.total_pages}
           className={
             classNames(
               'users__link',
               'lnk',
-              {'lnk-disable': page === data.total_pages}
+              {'lnk-disable': page >= data.total_pages}
             )
           }
           onClick={() => setPage(page + 1)}
-          isLoading={isFetching}
         >
           Show more
-        </a>
+        </button>
       </div>
     </section>
   );

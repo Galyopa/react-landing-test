@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
-import {createSlice} from "@reduxjs/toolkit";
-import { usersApi } from "../services/UsersApi";
+import {createSlice} from '@reduxjs/toolkit';
+import { usersApi } from '../services/UsersApi';
 
 interface AuthState {
   token: string;
@@ -14,6 +14,10 @@ const authSlice = createSlice({
   name: 'auth',
   initialState : initialState as AuthState,
   reducers: {
+    setToken: (state, {payload}) => {
+      state.token = payload;
+    },
+    removeToken: () => initialState
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -25,4 +29,5 @@ const authSlice = createSlice({
   },
 });
 
+export const {setToken, removeToken} = authSlice.actions;
 export default authSlice.reducer;
