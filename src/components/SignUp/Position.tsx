@@ -1,17 +1,17 @@
 import { FC } from 'react';
 import { useGetPositionsQuery } from '../../services/PositionsApi';
+import { useFormContext } from "react-hook-form";
 import './position.scss';
 
-type Props = {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-};
-
-export const  Position: FC<Props> = ({onChange}) => {
+export const  Position: FC = () => {
   const { data } = useGetPositionsQuery();
+  const methods = useFormContext();
 
   return (
     <div className="position">
-      <h3 className='position__subtitle'>Select your position</h3>
+      <h3 className='position__subtitle'>
+        Select your position
+      </h3>
       {
         data?.positions.map(position => (
           <label
@@ -22,9 +22,7 @@ export const  Position: FC<Props> = ({onChange}) => {
               className="position__radio-btn"
               type="radio"
               value={position.id}
-              name="position"
-              id={position.name}
-              onChange={onChange}
+              { ...methods.register("position") }
             />
             {position.name}
           </label>

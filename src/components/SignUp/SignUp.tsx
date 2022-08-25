@@ -1,60 +1,54 @@
-import { FC, useCallback, useEffect, useState} from 'react';
+import { FC } from 'react';
 import { Position } from './Position';
 import { Upload } from './Upload';
 import { useAddUserMutation } from '../../services/UsersApi';
 import './signup.scss';
 import success from '../../images/success-image.svg';
 import { Loader } from '../Loader/Loader';
+import { SubmitHandler, useForm, FormProvider} from 'react-hook-form';
+import classNames from 'classnames';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schema } from '../../utils/schema';
+
+type Inputs = {
+  name: string,
+  phone: string,
+  email: string,
+  position: string,
+  photo: FileList;
+};
 
 export const SignUp: FC = () => {
-  const [name, setName] =  useState('');
-  const [email, setEmail] =  useState('');
-  const [phone, setPhone] =  useState('');
-  const [positionId, setPositionId] = useState('');
   const [ addUser,
     {
       isLoading,
       isSuccess,
     }
   ] = useAddUserMutation();
-  const [
-    selectedFile,
-    setSelectedFile
-  ] = useState<File | null>(null);
 
-  useEffect(()=> {
-    setName('');
-    setEmail('');
-    setPhone('');
-    setPositionId('');
-    setSelectedFile(null);
-  }, [isSuccess]);
+  const methods = useForm<Inputs>({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
+  });
 
-  const handlePosition = useCallback((
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPositionId(event.target.value);
-  }, []);
+  const {
+    register,
+    formState: { isValid, errors },
+    handleSubmit,
+    reset,
+  } = methods;
 
-  const handleSelectedFile = useCallback((
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (event.target.files) {
-      setSelectedFile(event.target.files.item(0));
-    }
-  }, []);
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
     const formData = new FormData();
 
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('phone', phone);
-    formData.append('position_id', positionId);
-    formData.append('photo', selectedFile);
+    formData.append('name', data.name);
+    formData.append('email', data.email);
+    formData.append('phone', data.phone);
+    formData.append('position_id', data.position);
+    formData.append('photo', data.photo.item(0));
 
     addUser(formData).unwrap();
+    reset();
   };
 
   return (
@@ -64,7 +58,7 @@ export const SignUp: FC = () => {
           Working with POST request
         </h2>
         {
-          !isSuccess
+          isSuccess
             ? (
               <img
                 className="signup__success"
@@ -72,74 +66,113 @@ export const SignUp: FC = () => {
               />
             )
             : (
-              <form className="signup__form" onSubmit={handleSubmit}>
-                <label className='signup__label' htmlFor="name" >
-                  <input
-                    value={name}
-                    className="signup__input"
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder=" "
-                    onChange={(event) => setName(event.target.value)}
-                  />
-                  <span className="signup__placeholder">
-                    Your name
-                  </span>
-                </label>
+              <FormProvider {...methods}>
+                <form
+                  className="signup__form"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
+                  <label className='signup__label' htmlFor="name">
+                    <input
+                      className={
+                        classNames(
+                          'signup__input',
+                          {'signup__input-error': errors.name}
+                        )}
+                      placeholder=" "
+                      { ...register("name") }
+                    />
+                    <span
+                      className={
+                        classNames(
+                          'signup__placeholder',
+                          {'signup__placeholder-error': errors.name}
+                        )}
+                    >
+                      Your name
+                    </span>
+                    <p className='signup__error'>
+                      {errors.name?.message}
+                    </p>
+                  </label>
 
-                <label className='signup__label' htmlFor="email" >
-                  <input
-                    value={email}
-                    className="signup__input"
-                    type="text"
-                    name="email"
-                    id="email"
-                    placeholder=" "
-                    onChange={event => setEmail(event.target.value)}
-                  />
-                  <span className="signup__placeholder">
-                    Email
-                  </span>
-                </label>
+                  <label
+                    className='signup__label'
+                    htmlFor="email"
+                  >
+                    <input
+                      className={
+                        classNames(
+                          'signup__input',
+                          {'signup__input-error': errors.email}
+                        )}
+                      placeholder=" "
+                      { ...register("email") }
+                    />
+                    <span
+                      className={
+                        classNames(
+                          'signup__placeholder',
+                          {'signup__placeholder-error': errors.email}
+                        )}
+                    >
+                      Email
+                    </span>
+                    <p className='signup__error'>
+                      {errors.email?.message}
+                    </p>
+                  </label>
 
-                <label className='signup__label' htmlFor="phone" >
-                  <input
-                    value={phone}
-                    className="signup__input"
-                    type="text"
-                    name="phone"
-                    id="phone"
-                    placeholder=" "
-                    onChange={event => setPhone(event.target.value)}
-                  />
-                  <span className="signup__placeholder">
-                    Phone
-                  </span>
-                  <span className='signup__help-phone'>
-                    +38 (xxx) xxx - xx - xx
-                  </span>
-                </label>
 
-                <Position onChange={handlePosition} />
+                  <label className='signup__label' htmlFor="phone" >
+                    <input
+                      className={
+                        classNames(
+                          'signup__input',
+                          {'signup__input-error': errors.phone}
+                        )}
+                      placeholder=" "
+                      { ...register("phone") }
+                    />
+                    <span className={
+                      classNames(
+                        'signup__placeholder',
+                        {'signup__placeholder-error': errors.phone}
+                      )}>
+                      Phone
+                    </span>
+                    <span className='signup__help-phone'>
+                      +38 (xxx) xxx - xx - xx
+                    </span>
+                    <p className='signup__error'>
+                      {errors.phone?.message}
+                    </p>
+                  </label>
 
-                <Upload
-                  onChange={handleSelectedFile}
-                  selectedFile={selectedFile}
-                />
-                {
-                  isLoading
-                    ? (<Loader />)
-                    : (
-                      <button
-                        className="signup__btn lnk lnk-disable"
-                        type="submit"
-                      >
+                  <Position />
+
+                  <Upload/>
+
+                  {
+                    isLoading
+                      ? (<Loader />)
+                      : (
+                        <button
+                          className={
+                            classNames(
+                              'signup__btn',
+                              'lnk',
+                              {'lnk-disable' : !isValid}
+                            )
+                          }
+                          type="submit"
+                          disabled={!isValid}
+                        >
                         Sugn up
-                      </button>
-                    )
-                }
-              </form>
+                        </button>
+                      )
+                  }
+                </form>
+              </FormProvider>
             )
         }
 

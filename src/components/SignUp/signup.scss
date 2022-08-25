@@ -21,15 +21,19 @@
   }
 
   &__placeholder {
-    padding: 14px 16px;
+    padding: 13px 16px;
     border-radius: 8px;
-    position:absolute;
-    left:1px;
-    top:1px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
     transition: 0.2s;
     transition-timing-function: ease;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
     background-color: #f8f8f8;
+
+    &-error {
+      color: #cb3d40;
+    }
   }
 
   &__input {
@@ -39,6 +43,10 @@
     background-color: inherit;
     border: 1px solid #D0CFCF;
     border-radius: 4px;
+
+    &-error {
+      border: 2px solid #cb3d40;
+    }
 
     &:focus, &:not(:placeholder-shown), &:-webkit-autofill {
       & + .signup__placeholder {
@@ -51,6 +59,19 @@
 
     &:focus-visible {
       outline: none;
+    }
+  }
+
+  &__error {
+    position: absolute;
+    bottom: -16px;
+    left: 16px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #cb3d40;
+
+    &-photo {
+      position: relative;
     }
   }
 

@@ -3,11 +3,13 @@ import { FC, useCallback, useEffect, useState } from "react";
 import { useListUsersQuery, usePrefetch } from "../../services/UsersApi";
 import { User } from "../../types/User";
 import { Loader } from "../Loader/Loader";
+import userIcon from '../../images/photo-cover.svg';
 import './users.scss';
 
 export const Users: FC = () => {
   const [page, setPage ] = useState(1);
   const [users, setUsers] = useState<User []>([]);
+  const [totalPages, setTotalPages] = useState(1);
   const { data, isLoading, isFetching} = useListUsersQuery(page);
   const prefetchPage = usePrefetch('listUsers');
 
@@ -16,9 +18,9 @@ export const Users: FC = () => {
   }, [prefetchPage, page]);
 
   useEffect(() => {
-
     if (data) {
       setUsers([...users, ...data.users]);
+      setTotalPages(data.total_pages);
 
       if (page !== data.total_pages) {
         prefetchNext();
@@ -26,9 +28,6 @@ export const Users: FC = () => {
     }
   }, [data]);
 
-  if (!data?.users) {
-    return <div>No users :(</div>;
-  }
 
   return (
     <section className="users section" id="users">
@@ -40,7 +39,15 @@ export const Users: FC = () => {
           {
             users.map(user => (
               <li className="users__item" key={user.id}>
-                <img className="users__img" src={user.photo} alt={user.name} />
+                <img
+                  className="users__img"
+                  src={
+                    user.photo.includes('users')
+                      ? user.photo
+                      : userIcon
+                  }
+                  alt={user.name}
+                />
                 <h3 className="users__name ellipsis">
                   {user.name}
                 </h3>
@@ -61,12 +68,12 @@ export const Users: FC = () => {
         {isLoading || isFetching && <Loader />}
 
         <button
-          disabled={page >= data.total_pages}
+          disabled={page >= totalPages}
           className={
             classNames(
               'users__link',
               'lnk',
-              {'lnk-disable': page >= data.total_pages}
+              {'lnk-disable': page >= totalPages}
             )
           }
           onClick={() => setPage(page + 1)}
