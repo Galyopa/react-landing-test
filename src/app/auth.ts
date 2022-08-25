@@ -17,7 +17,6 @@ const authSlice = createSlice({
     setToken: (state, {payload}) => {
       state.token = payload;
     },
-    removeToken: () => initialState
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -29,5 +28,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {setToken, removeToken} = authSlice.actions;
+export const { setToken } = authSlice.actions;
 export default authSlice.reducer;

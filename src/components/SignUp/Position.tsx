@@ -2,7 +2,11 @@ import { FC } from 'react';
 import { useGetPositionsQuery } from '../../services/PositionsApi';
 import './position.scss';
 
-export const  Position: FC = () => {
+type Props = {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+};
+
+export const  Position: FC<Props> = ({onChange}) => {
   const { data } = useGetPositionsQuery();
 
   return (
@@ -17,10 +21,10 @@ export const  Position: FC = () => {
             <input
               className="position__radio-btn"
               type="radio"
-              value={position.name}
+              value={position.id}
               name="position"
               id={position.name}
-              defaultChecked
+              onChange={onChange}
             />
             {position.name}
           </label>

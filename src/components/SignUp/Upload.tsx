@@ -1,11 +1,12 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import './upload.scss';
 
-export const Upload: FC = () => {
-  const [
-    selectedFile,
-    setSelectedFile
-  ] = useState<FileList | undefined>(undefined);
+type Props = {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  selectedFile: File | null
+};
+
+export const Upload: FC<Props> = ({ onChange, selectedFile }) => {
 
   return (
     <div className="upload">
@@ -17,20 +18,14 @@ export const Upload: FC = () => {
           className="upload__input"
           type="file"
           name="photo"
-          onChange={
-            event => {
-              if (event.target.files) {
-                setSelectedFile(event.target.files);
-              }
-            }
-          }
+          onChange={onChange}
         />
 
         <div className="upload__filename-wrapper">
           <span className="upload__filename ellipsis">
             {
-              selectedFile?.item(0)
-                ? (selectedFile.item(0)?.name)
+              selectedFile
+                ? (selectedFile.name)
                 : ('Upload your photo')
             }
           </span>

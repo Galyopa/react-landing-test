@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import { FC, useEffect, useState } from "react";
-import { useListUsersQuery } from "../../services/UsersApi";
+import { FC, useCallback, useEffect, useState } from "react";
+import { useListUsersQuery, usePrefetch } from "../../services/UsersApi";
 import { User } from "../../types/User";
 import { Loader } from "../Loader/Loader";
 import './users.scss';
@@ -9,10 +9,20 @@ export const Users: FC = () => {
   const [page, setPage ] = useState(1);
   const [users, setUsers] = useState<User []>([]);
   const { data, isLoading, isFetching} = useListUsersQuery(page);
+  const prefetchPage = usePrefetch('listUsers');
+
+  const prefetchNext = useCallback(() => {
+    prefetchPage(page + 1);
+  }, [prefetchPage, page]);
 
   useEffect(() => {
+
     if (data) {
       setUsers([...users, ...data.users]);
+
+      if (page !== data.total_pages) {
+        prefetchNext();
+      }
     }
   }, [data]);
 
