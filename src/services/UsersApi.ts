@@ -8,7 +8,10 @@ import { User } from '../types/User';
 import { requestGetToken } from '../types/requestGetToken';
 import { setToken } from '../app/auth';
 import { RootState } from '../app/store';
-import { BaseQueryApi } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
+import {
+  BaseQueryApi,
+  QueryReturnValue
+} from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 
 const BASE_URL = 'https://frontend-test-assignment-api.abz.agency/api/v1/';
 
@@ -32,11 +35,17 @@ const baseQueryWithReauth = async (
 ) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.status === 401 && !result?.data?.success) {
+  const { data } = result as QueryReturnValue<requestGetToken>;
+
+  if (result?.error?.status === 401 && !data?.success) {
     const refreshResult = await baseQuery('token', api, {});
 
-    if (refreshResult.data) {
-      api.dispatch(setToken(refreshResult.data?.token));
+    const {
+      data: refreshData
+    } = refreshResult as QueryReturnValue<requestGetToken>;
+
+    if (refreshData) {
+      api.dispatch(setToken(refreshData?.token));
 
       result = await baseQuery(args, api, extraOptions);
     }

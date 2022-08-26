@@ -41,7 +41,7 @@ export const Upload: FC = () => {
           </span>
         </div>
         <p className='signup__error'>
-          {errors.photo?.message}
+          {errors.photo?.message as string}
         </p>
       </label>
 

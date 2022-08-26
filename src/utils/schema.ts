@@ -29,8 +29,10 @@ export const schema = yup.object().shape({
       "fileSize",
       "The photo size must not be greater than 5 Mb",
       (value: FileList) => {
-        if (value.item(0)?.size) {
-          return value.item(0).size >= FILE_SIZE;
+        const file = value.item(0);
+
+        if (file !== null) {
+          return file.size >= FILE_SIZE;
         }
 
         return false;
@@ -40,8 +42,10 @@ export const schema = yup.object().shape({
       "fileFormat",
       "The photo format must be jpeg/jpg type",
       (value: FileList) => {
-        if (value.item(0) !== null) {
-          return SUPPORTED_FORMATS.includes(value.item(0).type);
+        const file = value.item(0);
+
+        if (file !== null) {
+          return SUPPORTED_FORMATS.includes(file.type);
         }
 
         return false;

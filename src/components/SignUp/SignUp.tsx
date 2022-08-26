@@ -15,7 +15,7 @@ type Inputs = {
   phone: string,
   email: string,
   position: string,
-  photo: FileList;
+  photo: unknown;
 };
 
 export const SignUp: FC = () => {
@@ -38,14 +38,15 @@ export const SignUp: FC = () => {
     reset,
   } = methods;
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const formData = new FormData();
+    const files: FileList = data.photo as FileList;
 
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('phone', data.phone);
     formData.append('position_id', data.position);
-    formData.append('photo', data.photo.item(0));
+    formData.append('photo', files.item(0) as Blob);
 
     addUser(formData).unwrap();
     reset();
