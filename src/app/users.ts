@@ -4,10 +4,12 @@ import { User } from '../types/User';
 
 interface UsersState {
   users: User [];
+  page: number;
 }
 
 const initialState: UsersState = {
   users: [],
+  page: 1,
 };
 
 const usersSlice = createSlice({
@@ -19,9 +21,12 @@ const usersSlice = createSlice({
     },
     clearUsers: (state) => {
       state.users = [];
-    }
+    },
+    setPageUsers: (state, {payload}) => {
+      state.page = payload;
+    },
   },
 });
 
-export const { addUsers, clearUsers } = usersSlice.actions;
+export const { addUsers, clearUsers, setPageUsers } = usersSlice.actions;
 export default usersSlice.reducer;

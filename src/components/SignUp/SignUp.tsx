@@ -9,6 +9,8 @@ import { SubmitHandler, useForm, FormProvider} from 'react-hook-form';
 import classNames from 'classnames';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../utils/schema';
+import { useAppDispatch } from '../../app/hooks';
+import { clearUsers, setPageUsers } from '../../app/users';
 
 type Inputs = {
   name: string,
@@ -25,6 +27,7 @@ export const SignUp: FC = () => {
       isSuccess,
     }
   ] = useAddUserMutation();
+  const dispatch = useAppDispatch();
 
   const methods = useForm<Inputs>({
     mode: 'onChange',
@@ -41,6 +44,8 @@ export const SignUp: FC = () => {
   useEffect(()=> {
     if (isSuccess) {
       reset();
+      dispatch(clearUsers());
+      dispatch(setPageUsers(1));
     }
   },[isSuccess]);
 

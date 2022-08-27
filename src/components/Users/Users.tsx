@@ -1,17 +1,18 @@
 import classNames from "classnames";
 import { FC, useCallback, useEffect, useState } from "react";
 import { useListUsersQuery, usePrefetch } from "../../services/UsersApi";
-import { User } from "../../types/User";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { addUsers, setPageUsers } from "../../app/users";
 import { Loader } from "../Loader/Loader";
 import userIcon from '../../images/photo-cover.svg';
 import './users.scss';
 
 export const Users: FC = () => {
-  const [page, setPage ] = useState(1);
-  const [users, setUsers] = useState<User []>([]);
   const [totalPages, setTotalPages] = useState(1);
-  const { data, isLoading, isFetching} = useListUsersQuery(page);
   const prefetchPage = usePrefetch('listUsers');
+  const {users, page} = useAppSelector(state => state.users);
+  const dispatch = useAppDispatch();
+  const { data, isLoading, isFetching } = useListUsersQuery(page);
 
   const prefetchNext = useCallback(() => {
     prefetchPage(page + 1);
@@ -19,7 +20,7 @@ export const Users: FC = () => {
 
   useEffect(() => {
     if (data) {
-      setUsers([...users, ...data.users]);
+      dispatch(addUsers(data.users));
       setTotalPages(data.total_pages);
 
       if (page !== data.total_pages) {
@@ -27,7 +28,6 @@ export const Users: FC = () => {
       }
     }
   }, [data]);
-
 
   return (
     <section className="users section" id="users">
@@ -76,7 +76,7 @@ export const Users: FC = () => {
               {'lnk-disable': page >= totalPages}
             )
           }
-          onClick={() => setPage(page + 1)}
+          onClick={() => dispatch(setPageUsers(page + 1))}
         >
           Show more
         </button>

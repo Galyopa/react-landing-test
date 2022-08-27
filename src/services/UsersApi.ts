@@ -56,10 +56,17 @@ const baseQueryWithReauth = async (
 
 export const usersApi = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['User', 'Token'],
+  tagTypes: ['Users', 'Token'],
   endpoints: (builder) => ({
     listUsers: builder.query<requestGetUser<User>, number | void>({
-      query: (page = 1) => `users?page=${page}&count=6`,
+      query: (page = 0) => `users?page=${page}&count=6`,
+      providesTags: (result) =>
+        result
+          ? [
+            ...result.users.map(({ id }) => ({ type: 'Users' as const, id })),
+            { type: 'Users', id: 'PARTIAL-LIST' },
+          ]
+          : [{ type: 'Users', id: 'PARTIAL-LIST' }],
     }),
     addUser: builder.mutation<User, Partial<FormData>>({
       query(body) {
@@ -69,9 +76,11 @@ export const usersApi = createApi({
           body,
         };
       },
+      invalidatesTags: [{ type: 'Users', id: 'PARTIAL-LIST' }],
     }),
     getToken: builder.query<requestGetToken, void >({
       query: () => '/token',
+      providesTags: ['Token'],
     }),
   }),
 });
