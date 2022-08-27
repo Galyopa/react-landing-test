@@ -41,10 +41,21 @@
   text-align: center;
   border-radius: 17px;
   background-color: #F4E041;
+  color: inherit;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #FFE302;
+  }
 
   &-disable {
     background-color: #B4B4B4;
     color: #fff;
+
+    &:hover {
+      background-color: #B4B4B4;
+      cursor: default;
+    }
   }
 }
 

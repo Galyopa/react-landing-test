@@ -16,7 +16,6 @@ export const  Position: FC = () => {
         data?.positions.map(position => (
           <label
             className="position__radio"
-            htmlFor={position.name}
             key={position.id}>
             <input
               className="position__radio-btn"

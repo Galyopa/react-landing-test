@@ -56,6 +56,7 @@ const baseQueryWithReauth = async (
 
 export const usersApi = createApi({
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['User', 'Token'],
   endpoints: (builder) => ({
     listUsers: builder.query<requestGetUser<User>, number | void>({
       query: (page = 1) => `users?page=${page}&count=6`,

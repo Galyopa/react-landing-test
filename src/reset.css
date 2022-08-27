@@ -35,10 +35,6 @@ button {
   cursor: pointer;
 }
 
-button:disabled {
-  color: inherit;
-}
-
 input,
 textarea {
   font: inherit;

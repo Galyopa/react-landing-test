@@ -3,12 +3,14 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { usersApi } from '../services/UsersApi';
 import { positionsApi } from '../services/PositionsApi';
 import authReducer from './auth';
+import usersReducer from './users';
 
 export const store = configureStore({
   reducer: {
     [usersApi.reducerPath]: usersApi.reducer,
     [positionsApi.reducerPath]: positionsApi.reducer,
     auth: authReducer,
+    users: usersReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(

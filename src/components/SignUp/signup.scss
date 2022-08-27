@@ -17,6 +17,7 @@
   &__label {
     position: relative;
     display: inline-block;
+    max-height: 54px;
     color: #7E7E7E;
   }
 
@@ -27,9 +28,9 @@
     left: 2px;
     top: 2px;
     transition: 0.2s;
-    transition-timing-function: ease;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
     background-color: #f8f8f8;
+    z-index: -1;
 
     &-error {
       color: #cb3d40;
@@ -39,7 +40,6 @@
   &__input {
     width: 100%;
     padding: 14px 16px;
-    margin-bottom: 4px;
     background-color: inherit;
     border: 1px solid #D0CFCF;
     border-radius: 4px;
@@ -50,6 +50,7 @@
 
     &:focus, &:not(:placeholder-shown), &:-webkit-autofill {
       & + .signup__placeholder {
+        z-index: 1;
         padding: 2px 4px;
         font-size: 12px;
         line-height: 14px;
@@ -64,20 +65,32 @@
 
   &__error {
     position: absolute;
-    bottom: -16px;
+    bottom: -18px;
     left: 16px;
     font-size: 12px;
     line-height: 14px;
     color: #cb3d40;
+
+    &-phone {
+      bottom: -36px;
+    }
 
     &-photo {
       position: relative;
     }
   }
 
+  &__sucess {
+    margin: 50px auto;
+  }
+
   &__help-phone {
+    display: block;
     font-size: 12px;
     line-height: 14px;
+    position: absolute;
+    bottom: -18px;
+    left: 16px;
   }
 
   &__btn {

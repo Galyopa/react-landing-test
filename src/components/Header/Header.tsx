@@ -10,7 +10,12 @@ export const Header: FC = () => (
       <div className="container">
         <div className="header__top-wrapper">
           <a className="logo" href="#">
-            <img src={logo} alt="TESTTASK" />
+            <img
+              src={logo}
+              alt="TESTTASK"
+              width={104}
+              height={26}
+            />
           </a>
           <Nav />
         </div>
