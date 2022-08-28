@@ -25,6 +25,7 @@ export const SignUp: FC = () => {
     {
       isLoading,
       isSuccess,
+      error
     }
   ] = useAddUserMutation();
   const dispatch = useAppDispatch();
@@ -42,6 +43,7 @@ export const SignUp: FC = () => {
   } = methods;
 
   useEffect(()=> {
+
     if (isSuccess) {
       reset();
       dispatch(clearUsers());
@@ -118,7 +120,7 @@ export const SignUp: FC = () => {
                         className={
                           classNames(
                             'signup__input',
-                            {'signup__input-error': errors.email}
+                            {'signup__input-error': errors.email || error }
                           )}
                         placeholder=" "
                         { ...register("email") }
@@ -127,13 +129,16 @@ export const SignUp: FC = () => {
                         className={
                           classNames(
                             'signup__placeholder',
-                            {'signup__placeholder-error': errors.email}
+                            {'signup__placeholder-error': errors.email || error}
                           )}
                       >
                       Email
                       </span>
                       <p className='signup__error'>
-                        {errors.email?.message}
+                        {
+                          errors.email?.message
+                        || error?.data?.message
+                        }
                       </p>
                     </label>
 
@@ -143,7 +148,7 @@ export const SignUp: FC = () => {
                         className={
                           classNames(
                             'signup__input',
-                            {'signup__input-error': errors.phone}
+                            {'signup__input-error': errors.phone || error }
                           )}
                         placeholder=" "
                         { ...register("phone") }
@@ -151,7 +156,7 @@ export const SignUp: FC = () => {
                       <span className={
                         classNames(
                           'signup__placeholder',
-                          {'signup__placeholder-error': errors.phone}
+                          {'signup__placeholder-error': errors.phone || error }
                         )}>
                       Phone
                       </span>
@@ -159,7 +164,10 @@ export const SignUp: FC = () => {
                       +38 (XXX) XXX - XX - XX
                       </span>
                       <p className='signup__error signup__error-phone'>
-                        {errors.phone?.message}
+                        {
+                          errors.phone?.message
+                        || error?.data?.message
+                        }
                       </p>
                     </label>
 

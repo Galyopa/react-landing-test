@@ -10,7 +10,7 @@ import './users.scss';
 export const Users: FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const prefetchPage = usePrefetch('listUsers');
-  const {users, page} = useAppSelector(state => state.users);
+  const { users, page } = useAppSelector(state => state.users);
   const dispatch = useAppDispatch();
   const { data, isLoading, isFetching } = useListUsersQuery(page);
 
