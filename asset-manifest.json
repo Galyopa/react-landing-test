@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/react-landing-test/static/css/main.baeefdd4.css",
-    "main.js": "/react-landing-test/static/js/main.778e0cf9.js",
-    "static/css/402.34dab5c1.chunk.css": "/react-landing-test/static/css/402.34dab5c1.chunk.css",
+    "main.js": "/react-landing-test/static/js/main.035809d9.js",
+    "static/css/402.cfc3d357.chunk.css": "/react-landing-test/static/css/402.cfc3d357.chunk.css",
     "static/js/402.6f61078b.chunk.js": "/react-landing-test/static/js/402.6f61078b.chunk.js",
     "static/css/813.617e2b05.chunk.css": "/react-landing-test/static/css/813.617e2b05.chunk.css",
     "static/js/813.8ba4c25e.chunk.js": "/react-landing-test/static/js/813.8ba4c25e.chunk.js",
     "static/css/897.49754f70.chunk.css": "/react-landing-test/static/css/897.49754f70.chunk.css",
     "static/js/897.d7774fb6.chunk.js": "/react-landing-test/static/js/897.d7774fb6.chunk.js",
     "static/js/92.bb7deb64.chunk.js": "/react-landing-test/static/js/92.bb7deb64.chunk.js",
-    "static/media/header-bg.webp": "/react-landing-test/static/media/header-bg.fa417a62198fe1627758.webp",
+    "static/media/header-bg.webp": "/react-landing-test/static/media/header-bg.42ac09577e32689f31b6.webp",
     "static/media/success-image.svg": "/react-landing-test/static/media/success-image.0d3202ba11b04fa7364b0f83ce42aea5.svg",
     "static/media/logo.svg": "/react-landing-test/static/media/logo.0e017b87089c4474de39dc9dce3c3d1d.svg",
     "static/media/photo-cover.svg": "/react-landing-test/static/media/photo-cover.fb98cf13a87225efe558669bdc541ac7.svg",
     "index.html": "/react-landing-test/index.html",
     "main.baeefdd4.css.map": "/react-landing-test/static/css/main.baeefdd4.css.map",
-    "main.778e0cf9.js.map": "/react-landing-test/static/js/main.778e0cf9.js.map",
-    "402.34dab5c1.chunk.css.map": "/react-landing-test/static/css/402.34dab5c1.chunk.css.map",
+    "main.035809d9.js.map": "/react-landing-test/static/js/main.035809d9.js.map",
+    "402.cfc3d357.chunk.css.map": "/react-landing-test/static/css/402.cfc3d357.chunk.css.map",
     "402.6f61078b.chunk.js.map": "/react-landing-test/static/js/402.6f61078b.chunk.js.map",
     "813.617e2b05.chunk.css.map": "/react-landing-test/static/css/813.617e2b05.chunk.css.map",
     "813.8ba4c25e.chunk.js.map": "/react-landing-test/static/js/813.8ba4c25e.chunk.js.map",
@@ -26,6 +26,6 @@
   },
   "entrypoints": [
     "static/css/main.baeefdd4.css",
-    "static/js/main.778e0cf9.js"
+    "static/js/main.035809d9.js"
   ]
 }
