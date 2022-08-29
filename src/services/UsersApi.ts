@@ -1,7 +1,9 @@
+/* eslint-disable max-len */
 import {
   createApi,
   FetchArgs,
-  fetchBaseQuery
+  fetchBaseQuery,
+  FetchBaseQueryError
 } from '@reduxjs/toolkit/query/react';
 import { requestGetUser } from '../types/requestGetUser';
 import { User } from '../types/User';
@@ -10,8 +12,10 @@ import { setToken } from '../app/auth';
 import { RootState } from '../app/store';
 import {
   BaseQueryApi,
+  BaseQueryFn,
   QueryReturnValue
 } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
+import { CustomError } from '../types/CustomError';
 
 const BASE_URL = 'https://frontend-test-assignment-api.abz.agency/api/v1/';
 
@@ -28,10 +32,10 @@ const baseQuery = fetchBaseQuery({
   }
 });
 
-const baseQueryWithReauth = async (
+const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
   args: string | FetchArgs,
   api: BaseQueryApi,
-  extraOptions: {}
+  extraOptions: {},
 ) => {
   let result = await baseQuery(args, api, extraOptions);
 
@@ -55,7 +59,7 @@ const baseQueryWithReauth = async (
 };
 
 export const usersApi = createApi({
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQueryWithReauth as BaseQueryFn<string | FetchArgs, unknown, CustomError, {}>,
   tagTypes: ['Users', 'Token'],
   endpoints: (builder) => ({
     listUsers: builder.query<requestGetUser<User>, number | void>({

@@ -1,8 +1,7 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Position } from './Position';
 import { Upload } from './Upload';
 import { useAddUserMutation } from '../../services/UsersApi';
-import './signup.scss';
 import success from '../../images/success-image.svg';
 import { Loader } from '../Loader/Loader';
 import { SubmitHandler, useForm, FormProvider} from 'react-hook-form';
@@ -11,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../utils/schema';
 import { useAppDispatch } from '../../app/hooks';
 import { clearUsers, setPageUsers } from '../../app/users';
+import './signup.scss';
 
 type Inputs = {
   name: string,
@@ -30,6 +30,8 @@ export const SignUp: FC = () => {
   ] = useAddUserMutation();
   const dispatch = useAppDispatch();
 
+  const [errorMsg, setErrorMsg] = useState('');
+
   const methods = useForm<Inputs>({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -43,13 +45,21 @@ export const SignUp: FC = () => {
   } = methods;
 
   useEffect(()=> {
-
     if (isSuccess) {
       reset();
       dispatch(clearUsers());
       dispatch(setPageUsers(1));
+      setErrorMsg('');
     }
-  },[isSuccess]);
+
+    if (error) {
+      if ('data' in error) {
+        setErrorMsg(error.data.message);
+      }
+    }
+
+  },[isSuccess, error]);
+
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const formData = new FormData();
@@ -137,7 +147,7 @@ export const SignUp: FC = () => {
                       <p className='signup__error'>
                         {
                           errors.email?.message
-                        || error?.data?.message
+                        || errorMsg
                         }
                       </p>
                     </label>
@@ -166,7 +176,7 @@ export const SignUp: FC = () => {
                       <p className='signup__error signup__error-phone'>
                         {
                           errors.phone?.message
-                        || error?.data?.message
+                        || errorMsg
                         }
                       </p>
                     </label>
