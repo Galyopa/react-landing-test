@@ -1,6 +1,4 @@
 import { FC, useEffect, Suspense, lazy } from 'react';
-// import { SignUp } from './components/SignUp';
-// import { Users } from './components/Users';
 import { setToken } from './app/auth';
 import { useGetTokenQuery } from './services/UsersApi';
 import { Loader } from './components/Loader/Loader';
