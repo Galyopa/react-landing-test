@@ -1,12 +1,21 @@
-import { FC, useEffect } from 'react';
-import { Header } from './components/Header';
-import { SignUp } from './components/SignUp';
-import { Users } from './components/Users';
+import { FC, useEffect, Suspense, lazy } from 'react';
+// import { SignUp } from './components/SignUp';
+// import { Users } from './components/Users';
 import { setToken } from './app/auth';
 import { useGetTokenQuery } from './services/UsersApi';
+import { Loader } from './components/Loader/Loader';
 
 import './reset.css';
 import './App.scss';
+
+const Header = lazy(() => import("./components/Header")
+  .then(({Header}) => ({default: Header})));
+
+const Users = lazy(() => import("./components/Users")
+  .then(({Users}) => ({default: Users})));
+
+const SignUp = lazy(() => import("./components/SignUp")
+  .then(({SignUp}) => ({default: SignUp})));
 
 export const App: FC = () => {
   const { data } = useGetTokenQuery();
@@ -17,12 +26,12 @@ export const App: FC = () => {
 
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <Header />
       <div className="page__main">
         <Users />
         <SignUp />
       </div>
-    </>
+    </Suspense>
   );
 };

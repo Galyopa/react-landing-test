@@ -4,7 +4,7 @@ import logo from '../../logo.svg';
 
 import './header.scss';
 
-export const Header: FC = () => (
+const Header: FC = () => (
   <header className="header">
     <div className="header__top">
       <div className="container">
@@ -43,3 +43,4 @@ export const Header: FC = () => (
   </header>
 );
 
+export default Header as FC;
