@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/react-landing-test/static/css/main.b2e6abb0.css",
-    "main.js": "/react-landing-test/static/js/main.5b4448a3.js",
+    "main.css": "/react-landing-test/static/css/main.0ef01246.css",
+    "main.js": "/react-landing-test/static/js/main.879adfce.js",
     "static/media/header-bg.webp": "/react-landing-test/static/media/header-bg.fa417a62198fe1627758.webp",
     "static/media/success-image.svg": "/react-landing-test/static/media/success-image.0d3202ba11b04fa7364b0f83ce42aea5.svg",
     "static/media/logo.svg": "/react-landing-test/static/media/logo.0e017b87089c4474de39dc9dce3c3d1d.svg",
     "static/media/photo-cover.svg": "/react-landing-test/static/media/photo-cover.fb98cf13a87225efe558669bdc541ac7.svg",
     "index.html": "/react-landing-test/index.html",
-    "main.b2e6abb0.css.map": "/react-landing-test/static/css/main.b2e6abb0.css.map",
-    "main.5b4448a3.js.map": "/react-landing-test/static/js/main.5b4448a3.js.map"
+    "main.0ef01246.css.map": "/react-landing-test/static/css/main.0ef01246.css.map",
+    "main.879adfce.js.map": "/react-landing-test/static/js/main.879adfce.js.map"
   },
   "entrypoints": [
-    "static/css/main.b2e6abb0.css",
-    "static/js/main.5b4448a3.js"
+    "static/css/main.0ef01246.css",
+    "static/js/main.879adfce.js"
   ]
 }
