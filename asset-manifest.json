@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/react-landing-test/static/css/main.5e8f7b21.css",
-    "main.js": "/react-landing-test/static/js/main.43395630.js",
-    "static/css/402.b93f15a9.chunk.css": "/react-landing-test/static/css/402.b93f15a9.chunk.css",
+    "main.js": "/react-landing-test/static/js/main.4920916b.js",
+    "static/css/402.c60de665.chunk.css": "/react-landing-test/static/css/402.c60de665.chunk.css",
     "static/js/402.6f61078b.chunk.js": "/react-landing-test/static/js/402.6f61078b.chunk.js",
     "static/css/813.617e2b05.chunk.css": "/react-landing-test/static/css/813.617e2b05.chunk.css",
     "static/js/813.8ba4c25e.chunk.js": "/react-landing-test/static/js/813.8ba4c25e.chunk.js",
     "static/css/897.49754f70.chunk.css": "/react-landing-test/static/css/897.49754f70.chunk.css",
     "static/js/897.d7774fb6.chunk.js": "/react-landing-test/static/js/897.d7774fb6.chunk.js",
     "static/js/92.bb7deb64.chunk.js": "/react-landing-test/static/js/92.bb7deb64.chunk.js",
-    "static/media/header-bg.webp": "/react-landing-test/static/media/header-bg.eafe0d1e29d3e142bd31.webp",
+    "static/media/header-bg.webp": "/react-landing-test/static/media/header-bg.1a332680f395e3bbb53d.webp",
     "static/media/Nunito-Regular.woff": "/react-landing-test/static/media/Nunito-Regular.9144703ca1c8225d762c.woff",
     "static/media/Nunito-Regular.woff2": "/react-landing-test/static/media/Nunito-Regular.08d796f9635ea73e67b1.woff2",
     "static/media/success-image.svg": "/react-landing-test/static/media/success-image.0d3202ba11b04fa7364b0f83ce42aea5.svg",
@@ -17,8 +17,8 @@
     "static/media/photo-cover.svg": "/react-landing-test/static/media/photo-cover.fb98cf13a87225efe558669bdc541ac7.svg",
     "index.html": "/react-landing-test/index.html",
     "main.5e8f7b21.css.map": "/react-landing-test/static/css/main.5e8f7b21.css.map",
-    "main.43395630.js.map": "/react-landing-test/static/js/main.43395630.js.map",
-    "402.b93f15a9.chunk.css.map": "/react-landing-test/static/css/402.b93f15a9.chunk.css.map",
+    "main.4920916b.js.map": "/react-landing-test/static/js/main.4920916b.js.map",
+    "402.c60de665.chunk.css.map": "/react-landing-test/static/css/402.c60de665.chunk.css.map",
     "402.6f61078b.chunk.js.map": "/react-landing-test/static/js/402.6f61078b.chunk.js.map",
     "813.617e2b05.chunk.css.map": "/react-landing-test/static/css/813.617e2b05.chunk.css.map",
     "813.8ba4c25e.chunk.js.map": "/react-landing-test/static/js/813.8ba4c25e.chunk.js.map",
@@ -28,6 +28,6 @@
   },
   "entrypoints": [
     "static/css/main.5e8f7b21.css",
-    "static/js/main.43395630.js"
+    "static/js/main.4920916b.js"
   ]
 }
